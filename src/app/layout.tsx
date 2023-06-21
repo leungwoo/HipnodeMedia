@@ -2,13 +2,10 @@
 
 import './globals.css';
 import { ThemeProvider, useTheme } from 'next-themes';
-import { Provider } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import ProvidersWrapper from './Authentication/ProvidersWrapper';
 import { SessionType } from '../../lib/utils/type';
 import Logging from '../../lib/utils/Logging';
-import store from '../store/store';
-
 import { Footer, Header } from '../components';
 import RouteGuard from '@/components/RouteGuard';
 
@@ -44,7 +41,7 @@ function RootLayout({
           <ProvidersWrapper session={session}>
             <RouteGuard>
               <MainHeader />
-              <Provider store={store}>{children}</Provider>
+              {children}
               <MainFooter />
             </RouteGuard>
           </ProvidersWrapper>
