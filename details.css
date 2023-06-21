@@ -1,0 +1,110 @@
+/* First div */
+.post-details-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px;
+  }
+  
+  .post-details-container > .left {
+    margin-left: 120px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post-details-container > .left > .details-container {
+    height: 210px;
+    width: 300px;
+    background-color: #262D34;
+    border-radius: 10px;
+    padding: 6px;
+    padding-right: 10px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 4px;
+  }
+  
+  .details-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  .details-row img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  .details-row span {
+    color: white;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+  }
+  
+  /* Second div */
+  .post-details-container > .center {
+    margin-right: 10px;
+  }
+  
+  .post-details-container > .center > .image-container {
+    background-color: #262D34;
+    width: 785px;
+    height: 797px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  
+  .post-details-container > .center > .image-container img {
+    width: 785px;
+    height: 273px;
+    object-fit: contain;
+  }
+  
+  .post-details-container > .center > h1 {
+    color: white;
+    font-family: "Source Sans Pro";
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: left;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .post-details-container > .center > p {
+    color: #97989D;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  
+  /* Third and Fourth div */
+  .post-details-container > .right {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post-details-container > .right > .third-div,
+  .post-details-container > .right > .fourth-div {
+    background-color: #262D34;
+    width: 325px;
+    height: 354px;
+    margin-top: 15px;
+    margin-right: 30px;
+  }
