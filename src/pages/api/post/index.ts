@@ -74,40 +74,34 @@ export default async function handler(
           .json({ error: `cannot fetch posts/ server error: ${error}` });
       }
       break;
-    case 'POST':
-      try {
-        if (session) {
-          const currentUser = await User.findOne({
-            email: session.user?.email,
-          });
-          const { parent_group } = req.body;
-          // console.log({ title, content, post_image, post_tags, author, parent_group });
-          const currentGroup = await Group.findOne({ _id: parent_group });
-          console.log(req.body);
-          const newPost = new Post({
-            ...req.body,
-            author: currentUser as IUser,
-          });
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          newPost.save((err: any) => {
-            if (err) {
-              console.log(err);
-              return null;
-            }
-          });
-          currentUser?.posts_made.push(newPost);
-          currentUser?.save();
-          currentGroup?.posts.push(newPost);
-          currentGroup?.save();
-          console.log(newPost);
-          res.status(200).json({ message: `${newPost} created` });
-        } else {
-          throw new Error('User must be signed in to post');
+      case 'POST':
+        try {
+          if (session) {
+            const currentUser = await User.findOne({
+              email: session.user?.email,
+            });
+            const { parent_group, ...postData } = req.body; // Destructure req.body and remove parent_group
+            const currentGroup = await Group.findOne({ _id: parent_group });
+            console.log(req.body);
+            const newPost = new Post({
+              ...postData, // Use the destructured postData instead of req.body
+              author: currentUser as IUser,
+            });
+            await newPost.save(); // Use async/await syntax instead of callback
+      
+            currentUser?.posts_made.push(newPost);
+            await currentUser?.save();
+            currentGroup?.posts.push(newPost);
+            await currentGroup?.save();
+            console.log(newPost);
+            res.status(200).json({ message: `${newPost} created` });
+          } else {
+            throw new Error('User must be signed in to post');
+          }
+        } catch (error) {
+          res.status(500).json({ error: `post not created Error: ${error}` });
         }
-      } catch (error) {
-        res.status(500).json({ error: `post not created Error: ${error}` });
-      }
-      break;
+        break;
     default:
     // res.status(405).end(`Method ${method} Not Allowed`);
   }

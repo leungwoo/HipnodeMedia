@@ -51,7 +51,7 @@ const PostList: FC<Props> = ({
             const formattedDate = formatDistanceToNow(date, {
               addSuffix: true,
             });
-            console.log(item.likes, userID);
+            
             return (
               <div
                 key={item._id}
