@@ -93,7 +93,7 @@ function Signin({ csrfToken, providers }: SigninProps) {
               <div
                 className={`${themeClasses.cardText} font-semibold text-sm md:text-lg leading-5 md:leading-6`}
               >
-                Connect with other indie hackers running online businesses.
+                Connect with others running online businesses.
               </div>
             </div>
             <div
