@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useRef, useState } from 'react';
@@ -9,9 +10,10 @@ import PhotoImage from '../assets/Photo';
 interface SetCoverButtonProps {
   theme: string | undefined;
   setImageSelected: (image: any) => void;
+  handleImageChange:(imageSrc:string)=> void;
 }
 
-function SetCoverButton({ setImageSelected, theme }: SetCoverButtonProps) {
+function SetCoverButton({ setImageSelected, theme, handleImageChange }: SetCoverButtonProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [isImageLoaded, setIsImageLoaded] = useState(true);
@@ -21,6 +23,18 @@ function SetCoverButton({ setImageSelected, theme }: SetCoverButtonProps) {
     if (!isImageLoaded) {
       setIsImageLoaded(true);
       toast.success('Image uploaded Successfully');
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      setImageSelected(file);
+      setIsImageLoaded(false);
+      handleImageChange(URL.createObjectURL(file));
+      toast.success('Image uploaded Successfully');
+    } else {
+      setImageSelected(null); // Set null when no file is selected
     }
   };
 
@@ -42,12 +56,8 @@ function SetCoverButton({ setImageSelected, theme }: SetCoverButtonProps) {
         <input
           ref={inputRef}
           type="file"
-          hidden
-          onChange={(event: any) => {
-            setImageSelected(event.target.files[0]);
-            setIsImageLoaded(false);
-            toast.success('Image uploaded Successfully');
-          }}
+          
+          onChange={handleInputChange}
           className="rounded-xs text-darkGray dark:text-lightGray"
           required
         />

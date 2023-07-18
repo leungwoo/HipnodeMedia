@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 'use client';
 
 import React, { useState, lazy, Suspense } from 'react';
@@ -18,11 +20,13 @@ const createPost = () => {
     content: '',
     post_image: '',
     post_tags: [] as string[],
+    setcoverbutton: '',
   });
 
   const [imageSelected, setImageSelected] = useState();
   const [setCoverButtonKey, setSetCoverButtonKey] = useState(0);
 
+  {/*handling input fields title, textarea and tags */}
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     if (name === 'post_tags') {
@@ -38,7 +42,7 @@ const createPost = () => {
       }));
     }
   };
-
+{/*cloudinary uploading new image */}
   const uploadImage = async () => {
     if (!imageSelected) {
       return null;
@@ -61,8 +65,13 @@ const createPost = () => {
     }
   };
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if(!imageSelected){
+    toast.error("Set Cover Image is required");
+    return;
+    }
 
     let imageUrl = null;
     if (imageSelected) {
@@ -85,6 +94,7 @@ const createPost = () => {
         content: '',
         post_image: '',
         post_tags: [],
+        setcoverbutton:''
       });
       setImageSelected(null as any);
 
@@ -119,6 +129,11 @@ const createPost = () => {
               key={setCoverButtonKey}
               setImageSelected={setImageSelected}
               theme={theme}
+              handleImageChange={(imageSrc:any)=>
+            setFormData((prevState)=>({
+                ...prevState, setcoverimage:imageSrc
+            }))}
+             
             />
           </div>
         </Suspense>

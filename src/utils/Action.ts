@@ -5,6 +5,7 @@ import images from '../assets';
 export interface ActionItem {
     icon: StaticImageData;
     title: string;
+    action?:()=>void
   }
 
 export const actionInfo: ActionItem[] = [

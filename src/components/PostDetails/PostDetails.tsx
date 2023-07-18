@@ -44,7 +44,7 @@ function DetailsPost({ post }: Props) {
           </h1>
           <div className="py-5 flex flex-nowrap items-center justify-start w-full gap-6">
             {post.post_tags.map((tag: string, index: number) => (
-              <span className="cursor-pointer font-source-sans-pro text-base font-normal text-[16px] text-primary-yellow90">
+              <span key={index} className="cursor-pointer font-source-sans-pro text-base font-normal text-[16px] text-primary-yellow90">
                 #{tag}
               </span>
             ))}

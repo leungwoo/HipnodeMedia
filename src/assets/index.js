@@ -146,6 +146,8 @@ import GoogleLight from './Google-light.svg';
 import githubMarkWhite from './github-mark-white.svg';
 import githubMark from './github-mark.svg';
 import setcover from './setcover.png';
+import deleteicon from './deleteicon.png';
+import editicon from './editicon.png';
 import setcoverlight from './setcoverlight.png';
 import ProfileSidebarImage1 from './performanceSideBar/ProfileSidebarImage1.png';
 import ProfileSidebarImage2 from './performanceSideBar/ProfileSidebarImage2.png';
@@ -163,6 +165,8 @@ export default {
   ProfileSidebarImage5,
   ProfileSidebarImage6,
   githubMarkWhite,
+  deleteicon,
+editicon,
   githubMark,
   TwitterDark,
   TwitterLight,
