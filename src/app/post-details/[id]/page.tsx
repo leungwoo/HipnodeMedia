@@ -38,7 +38,7 @@ function PostDetailsPage({ params: { id } }: Props) {
     }
 
     fetchData();
-  }, [id]);
+  }, [id, session]);
 
   if (!post) {
     return <Loading />;
@@ -48,7 +48,7 @@ function PostDetailsPage({ params: { id } }: Props) {
 
   return (
     <div className="flex flex-col md:flex-row items-start justify-center w-full grow bg-layoutBackground dark:bg-dark2 px-5 md:px-10 py-5 gap-5 pb-20">
-      <ActionBar showAdmin={showAdmin} likeCount={post.likes?.length ?? 0} postId={post.id} />
+      <ActionBar showAdmin={showAdmin} likeCount={post.likes?.length ?? 0} postId={post._id} />
       <PostDetails post={post} />
       <RightPost post={post} />
     </div>
