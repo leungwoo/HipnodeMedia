@@ -4,9 +4,9 @@ import { ActionItem } from '@/utils/Action';
 import Image from 'next/image';
 import React from 'react';
 import {useRouter} from "next/navigation"
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import { useState } from 'react';
-import { Toast, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 import images from '../../assets';
 
