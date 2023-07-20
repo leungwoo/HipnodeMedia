@@ -49,15 +49,17 @@ export default async function handler(
       try {
         console.log('Received PATCH request for postId:', postId);
     console.log('Request body:', req.body);
-        if (session) {
+    if(session)
+        {
           const updatedPost = await Post.findByIdAndUpdate(
             postId,
             { ...req.body },
             { new: true });
           res.status(200).json(updatedPost);
         } else {
-          throw new Error('User must be signed in to edit post');
+            throw new Error('User must be signed in to Update post');
         }
+        
       } catch (error) {
         res
           .status(404)

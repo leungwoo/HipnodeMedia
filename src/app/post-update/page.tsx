@@ -11,7 +11,6 @@ import toast from 'react-hot-toast';
 import Link from 'next/link';
 import 'react-tagsinput/react-tagsinput.css';
 import { useSearchParams } from 'next/navigation';
-//import { useRouter } from 'next/navigation';
 
 import images from '../../assets';
 
@@ -31,7 +30,7 @@ const updatePost = () => {
     post_tags: [] as string[],
     setcoverbutton: '',
   });
-console.log(`This is the formData retrieved: ${formData.title}`)
+
   const [imageSelected, setImageSelected] = useState();
   const [setCoverButtonKey, setSetCoverButtonKey] = useState(0);
 
@@ -110,24 +109,26 @@ console.log(`This is the formData retrieved: ${formData.title}`)
     }
 
     try {
-      const response = await fetch(`/api/post/${postId}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          title: formData.title,
-          content: formData.content,
-          post_image: formData.post_image,
-          post_tags: formData.post_tags as string[],
-          setcoverbutton:formData.setcoverbutton,
-      })
-      });
-      if (response) {
+        const response = await axios.patch(`/api/post/${postId}`, {
+            title: formData.title,
+            content: formData.content,
+            post_image: imageUrl, // Use the uploaded image URL here
+            post_tags: formData.post_tags as string[],
+            setcoverbutton: formData.setcoverbutton,
+          });
+      
+      if (response.status === 200) {
         router.push(`/post-details/${postId}`);
+        setImageSelected(null as any);
+  
+        setSetCoverButtonKey((prevKey) => prevKey + 1);
+  
+        toast.success('Post Successfully Updated');
+      }else {
+        
+        toast.error('Failed to Update Post, make sure you are logged in');
       }
-      setImageSelected(null as any);
-
-      setSetCoverButtonKey((prevKey) => prevKey + 1);
-
-      toast.success('Post Successfully Updated');
+  
     } catch (error) {
       toast.error('Failed to Update Post, make sure you are logged in');
     }
