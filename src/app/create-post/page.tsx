@@ -9,11 +9,13 @@ import { useTheme } from 'next-themes';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import 'react-tagsinput/react-tagsinput.css';
+import { useRouter}  from 'next/navigation';
 
 const SetCoverButton = lazy(() => import('../../components/SetCoverButton'));
 import images from '../../assets';
 
 const createPost = () => {
+    const router = useRouter();
   const { theme } = useTheme();
   const [formData, setFormData] = useState({
     title: '',
@@ -88,7 +90,7 @@ const createPost = () => {
         post_image: imageUrl,
         post_tags: formData.post_tags,
       });
-      console.log('Response:', response);
+    
       setFormData({
         title: '',
         content: '',
@@ -101,6 +103,8 @@ const createPost = () => {
       setSetCoverButtonKey((prevKey) => prevKey + 1);
 
       toast.success('Post Successfully Created');
+        if(response.status === 200)router.push("/")
+      
     } catch (error) {
       toast.error('Failed to Create Post, make sure you are logged in');
     }
