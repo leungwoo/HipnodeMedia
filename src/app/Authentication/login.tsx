@@ -1,4 +1,5 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { FaPowerOff, FaUserCircle, FaSignInAlt } from 'react-icons/fa';
 
 import Link from 'next/link';
@@ -11,6 +12,7 @@ interface LoginProps {
 }
 
 export default function Login({ theme }: LoginProps) {
+    const router = useRouter();
   const { data: session, status } = useSession();
 
   // if the user exists -> show a Sign Out button and their information
@@ -33,11 +35,14 @@ export default function Login({ theme }: LoginProps) {
       </>
     );
   }
-
+function handleSignInandPush(){
+signIn();
+router.push("/")
+}
   return (
     <>
       <button
-        onClick={() => signIn()}
+        onClick={handleSignInandPush}
         type="button"
         className=" md:flex flex-row justify-center items-center gap-1 border border-opacity-25 rounded-lg py-2 px-4 bg-slate-100 hover:bg-gray-200 text-black "
       >
@@ -71,39 +76,5 @@ export default function Login({ theme }: LoginProps) {
       </button> */}
     </>
   );
-  // if a user doesn't exist -> show a Sign In button
-  // additional if check  added so that the signIn option won't be shown while session check is going on
-  if (!session && status === 'unauthenticated') {
-    return (
-      <>
-
-        <button
-          onClick={() => {
-            signIn();
-          }}
-          type="button"
-          className="hidden md:flex justify-center items-center gap-1 border rounded-full py-2 px-4 bg-slate-100 hover:bg-gray-200  dark:bg-dark3 dark:hover:bg-dark4"
-        >
-
-          {theme === 'light' ? <FaUserCircle size={20} className="w-4 h-4 hover:text-primary-orange text-[#858ead]" /> : <FaUserCircle size={20} className="w-4 h-4 text-white hover:text-primary-orange" />}
-          Sign In
-        </button>
-
-        <button
-          onClick={() => {
-            signIn();
-          }}
-          type="button"
-          className="flex md:hidden justify-center items-center gap-1 border rounded-full py-2 px-2 bg-slate-100 hover:bg-gray-200"
-        >
-
-          {theme === 'light' ? <FaSignInAlt size={20} className="w-4 h-4 hover:text-primary-orange text-[#858ead]" /> : <FaSignInAlt size={20} className="w-4 h-4  hover:text-primary-orange text-white" />}
-        </button>
-
-      </>
-    );
-  }
-  // this return is made for the typescript error :Its return type 'Element | undefined' is not a valid JSX element.
-  // Type 'undefined' is not assignable to type 'Element | null'
-  return <Link href="/api/auth/signin" />;
-}
+  
+    }

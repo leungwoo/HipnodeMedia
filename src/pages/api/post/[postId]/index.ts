@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
 
@@ -44,14 +45,16 @@ export default async function handler(
 
       break;
 
-    case 'PUT':
+    case 'PATCH':
       try {
+        console.log('Received PATCH request for postId:', postId);
+    console.log('Request body:', req.body);
         if (session) {
           const updatedPost = await Post.findByIdAndUpdate(
             postId,
             { ...req.body },
             { new: true });
-          res.status(200).json({ message: 'Post edited successfully' });
+          res.status(200).json(updatedPost);
         } else {
           throw new Error('User must be signed in to edit post');
         }

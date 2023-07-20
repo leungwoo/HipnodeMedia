@@ -60,7 +60,7 @@ try{
           icon: images.editicon,
           title: 'Edit',
           action: () => {
-            router.push(`/post-details/${postId}/edit`);
+            router.push(`/post-update?id=${postId}`);
           },
         }
       ] : []),
